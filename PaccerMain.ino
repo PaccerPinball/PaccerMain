@@ -34,7 +34,15 @@ void setup() {
   Serial.println("-------- PACCER START --------");
 }
 
+unsigned long lastMillis = 0;
 void loop() {
+  unsigned long tickTime = millis() - lastMillis;
+  if (lastMillis != 0 && tickTime > 5) {
+    Serial.print("!! WARNING !! - Long tick: ");
+    Serial.print(millis() - lastMillis);
+    Serial.println("ms");
+  }
+  lastMillis = millis();
   input.tick();
   common.tick();
   output.tick();
