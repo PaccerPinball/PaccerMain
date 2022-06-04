@@ -34,6 +34,7 @@ void setup() {
   Serial.println("-------- PACCER START --------");
   lcd.init();
   lcd.backlight();
+  output.updateScore(0);
 }
 
 unsigned long lastMillis = 0;
