@@ -14,13 +14,13 @@
 #include <PaccerInput.h>
 #include <PaccerCommon.h>
 #include <PaccerOutput.h>
-#include <LiquidCrystal.h>
+#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
 
 // Output
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-PaccerOutput output(&lcd, 16, 2);
+PaccerOutput output(&lcd);
 
 // Common
 PaccerCommon common(&output);
@@ -32,6 +32,8 @@ PaccerInput input(&common);
 void setup() {
   Serial.begin(115200);
   Serial.println("-------- PACCER START --------");
+  lcd.init();
+  lcd.backlight();
 }
 
 unsigned long lastMillis = 0;
