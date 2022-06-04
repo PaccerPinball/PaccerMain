@@ -14,13 +14,15 @@
 #include <PaccerInput.h>
 #include <PaccerCommon.h>
 #include <PaccerOutput.h>
+#include <PaccerSound.h>
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
 // Output
 LiquidCrystal_I2C lcd(0x27, 16, 2);
+PaccerSound sound(8, 105);
 
-PaccerOutput output(&lcd);
+PaccerOutput output(&lcd, &sound);
 
 // Common
 PaccerCommon common(&output);
@@ -35,6 +37,7 @@ void setup() {
   lcd.init();
   lcd.backlight();
   output.updateScore(0);
+  output.sound(SOUND_STARTUP);
 }
 
 unsigned long lastMillis = 0;
@@ -49,4 +52,5 @@ void loop() {
   input.tick();
   common.tick();
   output.tick();
+  sound.tick();
 }
