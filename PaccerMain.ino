@@ -21,8 +21,9 @@
 // Output
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 PaccerSound sound(8, 105);
+Adafruit_NeoPixel leds(35, 2, NEO_GRB + NEO_KHZ800);
 
-PaccerOutput output(&lcd, &sound);
+PaccerOutput output(&lcd, &sound, &leds);
 
 // Common
 PaccerCommon common(&output);
@@ -36,8 +37,11 @@ void setup() {
   Serial.println("-------- PACCER START --------");
   lcd.init();
   lcd.backlight();
+  leds.begin();
+  leds.setBrightness(20);
   output.updateScore(0);
   output.sound(SOUND_STARTUP);
+  output.led(LED_STARTUP);
 }
 
 unsigned long lastMillis = 0;
