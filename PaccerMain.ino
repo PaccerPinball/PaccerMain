@@ -38,7 +38,8 @@ void setup() {
   lcd.init();
   lcd.backlight();
   leds.begin();
-  leds.setBrightness(20);
+  leds.setBrightness(100);
+  leds.fill(leds.Color(255, 255, 0));
   output.updateScore(0);
   output.sound(SOUND_STARTUP);
   output.led(LED_STARTUP);
